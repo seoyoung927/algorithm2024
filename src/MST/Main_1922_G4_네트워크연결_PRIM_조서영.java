@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 //메모리: 46372KB, 시간: 408ms
-public class Main_1922_G4_네트워크연결_조서영 {
+public class Main_1922_G4_네트워크연결_PRIM_조서영 {
     static int N;
     static int M;
     static int[][] board;
