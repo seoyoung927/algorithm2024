@@ -10,28 +10,30 @@ import java.util.StringTokenizer;
 
 public class 자동차테스트 {
     static int n,q; //n개의 자동차, q개의 질의
-    static int[] combi;
-    static long[] cars;
+    static int cars[];
     static int result;
 
-    public static void getCombi(int depth, int start, long target){
-        if(depth>=3){
-            long[] arr = new long[3];
-            for(int i=0;i<3;i++){
-                arr[i] = cars[combi[i]];
+    public static int binarySearch(int target){
+        int result = -1;
+
+        int high = cars.length-1;
+        int low = 0;
+        while(low<=high){
+            int mid = (high+low)/2;
+            if(cars[mid]==target){
+                result = mid;
+                break;
             }
-            Arrays.sort(arr);
-
-            if(arr[1]==target) result+=1;
-
-            return;
+            else if(cars[mid]>target){
+                high = mid-1;
+            }
+            else{ //cars[mid]<target
+                low = mid+1;
+            }
         }
-
-        for(int i=start; i<n; i++){
-            combi[depth]=i;
-            getCombi(depth+1, i+1, target);
-        }
+        return result;
     }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -39,16 +41,17 @@ public class 자동차테스트 {
         n = Integer.parseInt(st.nextToken());
         q = Integer.parseInt(st.nextToken());
 
-        cars = new long[n];
+        cars = new int[n];
         st = new StringTokenizer(br.readLine());
-        for(int i=0;i<n;i++) cars[i] = Long.parseLong(st.nextToken());
+        for(int i=-0;i<n;i++) cars[i] = Integer.parseInt(st.nextToken());
+        Arrays.sort(cars);
 
         for(int i=0;i<q;i++){
-            long target = Long.parseLong(br.readLine());
-            combi = new int[3];
-            result = 0;
-            getCombi(0,0, target);
-            System.out.println(result);
+            int target = Integer.parseInt(br.readLine());
+            int targetIdx = binarySearch(target);
+
+            if(targetIdx==-1) System.out.println(0);
+            else System.out.println(targetIdx*(n-targetIdx-1));
         }
     }
 }
