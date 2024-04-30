@@ -1,4 +1,4 @@
-package day0308;
+package KakaoInternship;
 
 import java.util.ArrayList;
 import java.util.Arrays;

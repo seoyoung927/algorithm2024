@@ -1,4 +1,4 @@
-package day0305;
+package KakaoInternship;
 
 import java.util.HashMap;
 
