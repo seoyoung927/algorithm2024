@@ -1,5 +1,6 @@
 package KakaoInternship;
 
+import java.util.*;
 //완전탐색 최악-> 10C5 * 6^5 * 6^5
 //개선-> 10C5 * 6^5 * log(6^5)
 class Solution_주사위고르기2 {
