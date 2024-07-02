@@ -4,11 +4,13 @@ let inputs = require("fs")
   .trim()
   .split("\n");
 
-//1.초기화
+//1. 초기화
 let N = parseInt(inputs[0]);
 let cars = new Map();
+let T = -1;
 for (let i = 0; i < N; i++) {
   let car = inputs[i + 1].split(" ");
+  if (i == 0) T = parseInt(car[0]);
   if (!cars.has(parseInt(car[0]))) cars.set(parseInt(car[0]), []);
   cars.get(parseInt(car[0])).push([i, car[1]]);
 }
@@ -16,7 +18,6 @@ for (let i = 0; i < N; i++) {
 //2.
 let result = new Array(N).fill(-1);
 let R = [[], [], [], []];
-let T = 0;
 let cnt = 0;
 while (cnt < N) {
   //교착상태에 빠졌다면
@@ -60,7 +61,7 @@ while (cnt < N) {
   T += 1;
 }
 
-//3.
+//3. 출력
 for (let i = 0; i < N; i++) {
   console.log(result[i]);
 }

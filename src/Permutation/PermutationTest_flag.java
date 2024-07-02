@@ -17,7 +17,7 @@ public class PermutationTest_flag {
     public static void perm(int depth){
         if(depth>=R){
             tc++;
-            //System.out.println(Arrays.toString(perms));
+            System.out.println(Arrays.toString(perms));
             return;
         }
 
