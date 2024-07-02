@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-package seoyoung.day0408;
-=======
 package samsung;
->>>>>>> ce4f48b78aee9952fa3b21339f693151fb0072fd
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
