@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Solution {
+public class Solution_9999_광고시간정하기 {
     static int L;
     static int N;
     static Peek[] peek;
