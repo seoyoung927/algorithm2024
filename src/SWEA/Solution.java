@@ -9,6 +9,7 @@ public class Solution {
     static int L;
     static int N;
     static Peek[] peek;
+    static int[] sum;
     static int answer;
 
     static class Peek{
@@ -17,36 +18,34 @@ public class Solution {
         int duration;
 
         public Peek() {}
-        public Peek(int start, int end, int duration){
+        public Peek(int start, int end){
             this.start = start;
             this.end = end;
-            this.duration = duration;
         }
 
         @Override
         public String toString(){
-            return "[s="+start+",e="+end+",d="+duration+"]";
+            return "[s="+start+",e="+end+"]";
         }
     }
 
-    public static void dfs(int sIdx, int eIdx, int cur){
-        if(sIdx>=N||eIdx>=N) return;
-        if(sIdx>eIdx) return;
-        if(eIdx==N-1){
-            int ans = cur-peek[eIdx].duration+(peek[sIdx].start+L-peek[eIdx].start);
-            answer = Math.max(answer, ans);
-            return;
+    public static int search(int target){
+        int ret = N;
+        int start = 0;
+        int end = N-1;
+
+        while(start<=end){
+            int mid = (start+end)/2;
+
+            if(peek[mid].end>target){
+                ret = mid;
+                end = mid-1;
+            }else{
+                start = mid+1;
+            }
         }
 
-        if(peek[sIdx].end+L>peek[eIdx+1].start){
-            //앞으로 더 나아갈 수 있음
-            dfs(sIdx,eIdx+1, cur+peek[eIdx+1].duration);
-        }else{
-            //현재가 최대
-            int ans = cur-peek[eIdx].duration+(peek[sIdx].start+L-peek[eIdx].start);
-            answer = Math.max(answer, ans);
-            dfs(sIdx+1, eIdx, cur-peek[sIdx].duration);
-        }
+        return ret;
     }
 
     public static void main(String[] args) throws IOException {
@@ -58,15 +57,30 @@ public class Solution {
             L = Integer.parseInt(br.readLine());
             N = Integer.parseInt(br.readLine());
             peek = new Peek[N];
+            sum = new int[N+1];
             for(int i=0; i<N; i++){
                 st = new StringTokenizer(br.readLine());
                 int s = Integer.parseInt(st.nextToken());
                 int e = Integer.parseInt(st.nextToken());
-                peek[i]=new Peek(s,e,e-s);
+                peek[i]=new Peek(s,e);
+
+                //누적합
+                if(i==0) sum[i]=e-s;
+                else sum[i]=sum[i-1]+e-s;
             }
 
             answer = 0;
-            dfs(0,0, peek[0].duration);
+            for(int i=0; i<N; i++){
+                int target = peek[i].start+L;
+                int ub = search(target);
+
+                int s = sum[ub-1];
+                if(i>0) s-=sum[i-1];
+
+                if(ub!=N && target>=peek[ub].start) s+=target-peek[ub].start;
+
+                answer=Math.max(answer,s);
+            }
 
             System.out.printf("#%d %d%n", test_case, answer);
         }
