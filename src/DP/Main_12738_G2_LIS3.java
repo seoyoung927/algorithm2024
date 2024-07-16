@@ -48,6 +48,7 @@ public class Main_12738_G2_LIS3 {
             } else {
                 list.add(A[i]);
             }
+
         }
 
         //2. 출력
