@@ -8,10 +8,15 @@ public class Main_1976_G4_여행가자_서로소집합 {
     static int[][] graph;
     static int[] plan;
     static int[] parents;
+    static int[] ranks;
 
     public static void make(){
         parents = new int[N+1];
-        for(int i=0; i<N+1; i++) parents[i] = i;
+        ranks = new int[N+1];
+        for(int i=0; i<N+1; i++) {
+            parents[i] = i;
+            ranks[i] = 0;
+        }
     }
 
     public static int find(int v){
@@ -24,7 +29,15 @@ public class Main_1976_G4_여행가자_서로소집합 {
         int bRoot = find(b);
 
         if(aRoot==bRoot) return false;
-        parents[bRoot] = aRoot;
+
+        if(ranks[bRoot]<ranks[aRoot]){
+            parents[bRoot] = aRoot;
+        }else if(ranks[aRoot]<ranks[bRoot]){
+            parents[aRoot] = bRoot;
+        }else{
+            parents[bRoot] = aRoot;
+            ranks[aRoot]++;
+        }
         return true;
     }
 
